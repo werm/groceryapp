@@ -1,0 +1,62 @@
+<div id="messages" ng-show="message">{{ message }}</div>
+
+<!-- <form ng-submit="processForm()">
+  <div id="name-group" class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control" placeholder="Item" ng-model="formData.name">
+    <span class="help-block"></span>
+  </div>
+
+  <div id="qty-group" class="form-group">
+    <label>Quantity</label>
+    <input type="text" name="quantity" class="form-control" placeholder="2" ng-model="formData.quantity">
+    <span class="help-block"></span>
+  </div>
+
+    <input type="hidden" name="done" value="false" ng-model="formData.done">
+
+  <button type="submit" class="btn btn-success btn-lg btn-block">
+    <span class="glyphicon glyphicon-flash"></span> Submit!
+  </button>
+</form> -->
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-lg-3">
+    <form action="" ng-submit="saveItem()" method="POST" role="form">
+      <legend>New Item</legend>
+      <div class="form-group">
+        <input type="text" ng-model="item.name" id="itemName" class="form-control" placeholder="Name" />
+      </div>
+      <div class="form-group">
+        <input type="number" ng-model="item.quantity" id="itemQuantity" class="form-control" placeholder="Quantity" />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+
+  <div class="col-sm-12 col-md-8 col-lg-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Items <span class="label label-primary">{{getTotalItems()}}</span></h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li ng-repeat="item in itemList" class="list-group-item">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-click="itemComplete(item.id)" on-change> 
+                  <span ng-if="item.done">
+                    <span class="strike">
+                      {{ item.name }} <span ng-if="item.quantity"> - {{ item.quantity }}</span>
+                    </span>
+                  </span>
+                  <span ng-if="!item.done">
+                    {{ item.name }} <span ng-if="item.quantity"> - {{ item.quantity }}</span>
+                  </span>
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
