@@ -15,7 +15,13 @@ angular.module('groceryAppApp')
     $scope.itemList = Items.query();
 
     $scope.getTotalItems = function () {
-      return $scope.itemList.length;
+      var notDone = []
+      for (var i = 0; i < $scope.itemList.length; i++) {
+        if($scope.itemList[i].done === false){
+          notDone.push($scope.itemList[i])
+        }
+      }
+      return notDone.length;
     };
     
     $scope.saveItem = function() {
@@ -28,7 +34,7 @@ angular.module('groceryAppApp')
     };
 
     $scope.itemComplete = function(id) {
-      var item = Items.get({ id: id });
+      var item = Item.get({ id: id });
       if(item.done === true){
         item.done = false;
       } else
@@ -37,7 +43,8 @@ angular.module('groceryAppApp')
       } else {
         item.done = true;
       }
-      Items.update({ id: id }, item);
+      Item.update({ id: id }, item);
+      $scope.itemList = Items.query();
     };
 
     $scope.processForm = function() {

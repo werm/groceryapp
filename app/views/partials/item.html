@@ -40,10 +40,10 @@
       </div>
       <div class="panel-body">
         <ul class="list-group">
-          <li ng-repeat="item in itemList" class="list-group-item">
+          <li ng-repeat="item in itemList | orderBy:'done'" class="list-group-item">
             <div class="checkbox">
               <label>
-                <input type="checkbox" ng-click="itemComplete(item.id)" on-change> 
+                <input type="checkbox" ng-click="itemComplete(item._id)" on-change> 
                   <span ng-if="item.done">
                     <span class="strike">
                       {{ item.name }} <span ng-if="item.quantity"> - {{ item.quantity }}</span>

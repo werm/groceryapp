@@ -15,7 +15,7 @@ angular.module('groceryAppApp')
     return $resource('/api/items/:id', {
       id: '@id'
     }, { //parameters default
-      update: { method: 'PUT', isArray: false },
+      update: { method: 'PUT', url: '/api/items/:id' },
       delete: { method: 'DELETE' },
       get: { method: 'GET' }
     });
