@@ -1,13 +1,3 @@
-// 'use strict';
-
-// angular.module('groceryApp')
-//   .factory('Item', ['$resource', function($resource) {
-//     return $resource('http://localhost:1337/item/:id', null, {
-//       'update': { method:'PUT' },
-//       'delete': { method: 'DELETE'}
-//     });
-//   }]);
-
 'use strict';
 
 angular.module('groceryAppApp')
@@ -16,6 +6,8 @@ angular.module('groceryAppApp')
       id: '@id'
     }, { //parameters default
       update: { method: 'PUT', url: '/api/items/:id' },
+      updateDone: { method: 'PUT', url: '/api/itemDone/:id' },
+      updateNotDone: { method: 'PUT', url: '/api/itemNotDone/:id' },
       delete: { method: 'DELETE' },
       get: { method: 'GET' }
     });

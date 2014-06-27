@@ -33,17 +33,18 @@ angular.module('groceryAppApp')
       });
     };
 
+    $scope.itemNotComplete = function(id) {
+      var item = Item.get({ id: id });
+      item.done = false;
+      console.log(item.done)
+      Item.updateNotDone({ id: id }, item);
+      $scope.itemList = Items.query();
+    };
+
     $scope.itemComplete = function(id) {
       var item = Item.get({ id: id });
-      if(item.done === true){
-        item.done = false;
-      } else
-      if(!item.done){
-        item.done = true;
-      } else {
-        item.done = true;
-      }
-      Item.update({ id: id }, item);
+      item.done = true;
+      Item.updateDone({ id: id }, item);
       $scope.itemList = Items.query();
     };
 
