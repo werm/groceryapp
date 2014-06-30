@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('groceryAppApp')
-  .controller('ItemCtrl', function ($scope, $http, $resource, Item) {
+  .controller('ItemCtrl', function ($scope, $http, $resource, Item, Sockets) {
 
     var Items = $resource('/api/items', {
       id: '@id'
@@ -14,10 +14,15 @@ angular.module('groceryAppApp')
     $scope.item = new Items();
     $scope.itemList = Items.query();
 
+    socket.on('send:item', function (data) {
+      $scope.newItem = data.name;
+      console.log($scope.newItem)
+    });
+
     $scope.getTotalItems = function () {
       var notDone = []
       for (var i = 0; i < $scope.itemList.length; i++) {
-        if($scope.itemList[i].done === false){
+        if($scope.itemList[i].done === false || !$scope.itemList[i].done){
           notDone.push($scope.itemList[i])
         }
       }
@@ -29,7 +34,6 @@ angular.module('groceryAppApp')
       $scope.item[method]({}, function() {
         $scope.item = new Items();
         $scope.itemList = Items.query();
-        console.log('Saved!!');
       });
     };
 
