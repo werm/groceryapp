@@ -1,7 +1,7 @@
 var socket = io(); // TIP: io() with no args does auto-discovery
 socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
   socket.on('alert', function(data){
-    $('#alerts').html('<div class="alert alert-' + data.alertType + '">' + data.msg + '</div>');
+    $('#alerts').html('<div class="alert alert-' + data.alertType + ' alert-fixed-top">' + data.msg + '</div>');
     $('#alerts').delay(2000).fadeOut('slow');
   });
 

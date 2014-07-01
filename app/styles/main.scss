@@ -1,6 +1,8 @@
-$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+// $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$icon-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import 'jasny-bootstrap';
 
 .browsehappy {
     margin: 0.2em 0;
@@ -11,7 +13,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
+    padding-top: 70px;
     padding-bottom: 20px;
 }
 
@@ -67,8 +69,21 @@ body {
     margin-top: 28px;
 }
 
-.strike { text-decoration: line-through; }
+.strike, .item-label {
+  display: inline-block;
+  margin-left: 6px;
+}
 
+.strike {
+  text-decoration: line-through;
+}
+
+.navbar-default .navbar-toggle {
+  display: inline-block;
+  float: none;
+  margin-left: 15px;
+  border-color: darken($navbar-default-bg, 20%)
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -88,4 +103,37 @@ body {
     .jumbotron {
         border-bottom: 0;
     }
+}
+
+input.faChkRnd, input.faChkSqr {
+  visibility: hidden;
+}
+
+input.faChkRnd:checked:after, input.faChkRnd:after,
+input.faChkSqr:checked:after, input.faChkSqr:after {
+  visibility: visible;
+  font-family: FontAwesome;
+  font-size:25px;height: 17px; width: 17px;
+  position: relative;
+  top: -6px;
+  left: 0px;
+  margin-right: 6px;
+  background-color:#FFF;
+  display: inline-block;
+}
+
+input.faChkRnd:checked:after {
+  content: '\f058';
+}
+
+input.faChkRnd:after {
+  content: '\f10c';
+}
+
+input.faChkSqr:checked:after {
+  content: '\f14a';
+}
+
+input.faChkSqr:after {
+  content: '\f096';
 }
