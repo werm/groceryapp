@@ -3,6 +3,8 @@
 angular.module('groceryAppApp')
   .controller('ItemCtrl', function ($scope, $http, $resource, Item, Sockets) {
 
+    var socket = io.connect();
+
     var Items = $resource('/api/items', {
       id: '@id'
     },{
@@ -14,9 +16,15 @@ angular.module('groceryAppApp')
     $scope.item = new Items();
     $scope.itemList = Items.query();
 
-    socket.on('send:item', function (data) {
-      $scope.newItem = data.name;
-      console.log($scope.newItem)
+    // $('#itemForm').submit(function(e){
+    //   e.preventDefault();
+    //   var newItem = $('#itemForm').serializeArray();
+    //   socket.emit('send-item', newItem);
+    // });
+
+    socket.on('new-item', function(data){
+      console.log("From socket")
+      $scope.itemList = Items.query();
     });
 
     $scope.getTotalItems = function () {
@@ -32,6 +40,7 @@ angular.module('groceryAppApp')
     $scope.saveItem = function() {
       var method = $scope.item.id ? '$update' : '$save';
       $scope.item[method]({}, function() {
+        socket.emit('send-item');
         $scope.item = new Items();
         $scope.itemList = Items.query();
       });
@@ -40,9 +49,9 @@ angular.module('groceryAppApp')
     $scope.itemNotComplete = function(id) {
       var item = Item.get({ id: id });
       item.done = false;
-      console.log(item.done)
       Item.updateNotDone({ id: id }, item);
       $scope.itemList = Items.query();
+      socket.emit('send-item');
     };
 
     $scope.itemComplete = function(id) {
@@ -50,6 +59,7 @@ angular.module('groceryAppApp')
       item.done = true;
       Item.updateDone({ id: id }, item);
       $scope.itemList = Items.query();
+      socket.emit('send-item');
     };
 
     $scope.processForm = function() {
